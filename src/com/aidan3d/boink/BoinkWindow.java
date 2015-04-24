@@ -1,19 +1,28 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+/**************************************************************
+ * CIST 2744 Advanced Game Physics, Section 41259             *
+ *                                                            *
+ * Assignment:  Final Project: Boink                          *
+ *                                                            *
+ * Name:        Aidan Hegarty, SID 3036 (last four)           *
+ *                                                            *
+ * Description: A platform game with an appetite for          *
+ *              destruction! Help the green Boink-ball        *
+ *              catch the blue Bink-ball by clicking          *
+ *              wooden platform planks.                       *
+ *                                                            *
+ **************************************************************/
 package com.aidan3d.boink;
         
 import Eureka.EurekaWindow;
 
 /**
- * The Tank class is derived from a <b>EurekaWindow</b>
+ * The BoinkWindow class is derived from a <b>EurekaWindow</b>
  * object, which is currently derived from a <b>JFrame</b>
- * object. The Tank object will hold a <b>Boink</b> object
+ * object. The BoinkWindow object will hold a <b>BoinkPanel</b> object
  * (effectively a JPanel-derived object).
  * @author hardnett
  */
-public class Tank extends EurekaWindow {
+public class BoinkWindow extends EurekaWindow {
     private static final int DEFAULT_FPS = 32;  // the number of frames per second
     private static long period;                 // the time we want to "fill out" before updating
     
@@ -21,30 +30,30 @@ public class Tank extends EurekaWindow {
     /**
      * Creates new form WormChase
      */
-    public Tank() {
+    public BoinkWindow() {
         initComponents();
         
 
     }
 
     public void windowActivated(java.awt.event.WindowEvent e) {
-        ((Boink)bunk).resumeGame();
+        ((BoinkPanel)bunk).resumeGame();
     }
     
     public void windowDeactivated(java.awt.event.WindowEvent e) {
-        ((Boink)bunk).pauseGame();
+        ((BoinkPanel)bunk).pauseGame();
     }
     
     public void windowDeiconified(java.awt.event.WindowEvent e) {
-        ((Boink)bunk).resumeGame();
+        ((BoinkPanel)bunk).resumeGame();
     }
     
     public void windowIconified(java.awt.event.WindowEvent e) {
-        ((Boink)bunk).pauseGame();
+        ((BoinkPanel)bunk).pauseGame();
     }
     
     public void windowClosing(java.awt.event.WindowEvent e) {
-        ((Boink)bunk).stopGame();
+        ((BoinkPanel)bunk).stopGame();
     }
     
     
@@ -73,7 +82,7 @@ public class Tank extends EurekaWindow {
 
         rightTextBox = new javax.swing.JTextField();
         leftTextBox = new javax.swing.JTextField();
-        bunk = new com.aidan3d.boink.Boink(this, period*1000000L);
+        bunk = new com.aidan3d.boink.BoinkPanel(this, period*1000000L);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,14 +152,26 @@ public class Tank extends EurekaWindow {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BoinkWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BoinkWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BoinkWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tank.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BoinkWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -162,7 +183,7 @@ public class Tank extends EurekaWindow {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new Tank().setVisible(true);
+                new BoinkWindow().setVisible(true);
             }
         });
     }

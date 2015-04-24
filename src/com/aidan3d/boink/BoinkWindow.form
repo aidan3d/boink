@@ -56,7 +56,7 @@
     </Component>
     <Container class="javax.swing.JPanel" name="bunk">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.aidan3d.boink.Boink(this, period*1000000L)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.aidan3d.boink.BoinkPanel(this, period*1000000L)"/>
       </AuxValues>
 
       <Layout>
