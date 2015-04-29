@@ -17,7 +17,6 @@ import Eureka.EurekaPanel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import math.geom2d.Angle2D;         // using the PI constants
 import math.geom2d.Vector2D;
 
 
@@ -29,30 +28,35 @@ import math.geom2d.Vector2D;
 public class BoinkPanel extends EurekaPanel {
     
     // Fields
-    private final double BOINK_RADIUS = 32.0F;          // The BoinkPanel's (or ball's)
-                                                        // radius
+    private final double BOINK_RADIUS = 16.0F;          // the ball's radius
+    
+    private final double BOINK_MASS = 10.0F;            // all the young Boinks contain 1kg of matter (accelerating 
+                                                        // at a rate of 10px per second vertically) with a
+                                                        // gravitational force equal to ten newtons directed
+                                                        // towards screen-"south"
+    private final int TANK_WIDTH = 384;
+    private final int TANK_HEIGHT = 384;
+    
+    private final Color BLUE_SKIN = Color.BLUE;         // a boink is blue
 
-    private final double BOINK_MASS = 10.0F;            // All Boinks contain 10kg
-                                                        // of matter (accelerate 
-                                                        // at a rate of 1px per
-                                                        // second vertically)
+    private final Vector2D INITIAL_POSITION = new Vector2D(400.0, 0.0F); // dropped from on-high
+    private final Vector2D INITIAL_VELOCITY = new Vector2D(0.0F, 0.0F); // get the ball rolling
+
     
-    private final Color GREEN_SKIN = Color.GREEN;
-    private final Vector2D GRAVITY = new Vector2D(0.0F, 10.0F); // A force
-                                                                // y is downards
-                                                                // so the force is
-                                                                // positive
+    private final Vector2D GRAVITY = new Vector2D(0.0F, 10.0F); // y is downwards so this
+                                                                // force is always positive
     
-    private final Circle bill;
-    private final BoinkWindow boinkTop;
-    private final Font boinkFont;
-    private final FontMetrics metrics;
+    private final Rectangle tank;                       // the fish tank in which the bonks "float"
+    private final Ball bill;                            // the blue Boink (or "mushy" ball)
+
+    private final BoinkWindow boinkTop;                 // the calling object
+    private final Font boinkFont;                       // used to display on-screen message
+    private final FontMetrics metrics;                  // needed by the Font object
+
 
     public BoinkPanel() {
 
-        // Initialize the EurekaPanel superclass (which
-        // itself inherits from the JPanel class and sits
-        // inside the BoinkWindow (JFrame-derived) object.
+        // call the two-argument constructor if we have an empty panel
         this(null, 0L);
 
     } // end of BoinkPanel()
@@ -75,26 +79,28 @@ public class BoinkPanel extends EurekaPanel {
         setBackground(Color.cyan);
         setPreferredSize(new java.awt.Dimension(PWIDTH, PHEIGHT));
 
-        // Create the green boink who will be doing the "hitting."
-        bill = new Circle(new Vector2D(0.0F, 0.0F), BOINK_RADIUS, BOINK_MASS, GRAVITY, GREEN_SKIN);
+        // create the fish tank
+        tank = new Rectangle(new Vector2D(PWIDTH/2,PHEIGHT/2), new Vector2D(TANK_WIDTH/2, 0.0F), new Vector2D(0.0F, TANK_HEIGHT/2));
         
+        // create the green boink who will be doing the "hitting."
+        bill = new Ball(INITIAL_POSITION, BOINK_RADIUS, INITIAL_VELOCITY, BOINK_MASS, GRAVITY, BLUE_SKIN);
         
-        // setup the message font
+        // set up the message font
         boinkFont = new Font("SansSerif", Font.BOLD, 24);
         metrics = this.getFontMetrics(boinkFont);
 
-    } // end of BoinkPanel(MainWindow, long)
+    }
 
 
       /**
      * This is the initialization method that should be overridden 
-     * by the derived class. This method will only be called once for setting up
-     * game objects.
+     * by the derived class. This method will only be called once,
+     * to set up game objects.
      */
     @Override
     public void customizeInit() {
         
-    } // end method customizeInit
+    }
 
 
     /**
@@ -111,12 +117,15 @@ public class BoinkPanel extends EurekaPanel {
             theCanvas.setColor(Color.white); // text font color is white
             theCanvas.setFont(boinkFont);    // text font style
 
+            // construct a glass tank for the Boinks to float around in
+            tank.draw(theCanvas);
+            
             // place bill on stage in the current position
             bill.draw(theCanvas);
 
         } // end if
 
-    } // end method customizeGameRender
+    }
 
 
     /**
@@ -129,21 +138,30 @@ public class BoinkPanel extends EurekaPanel {
         // Move bill-the-BoinkPanel first.
         bill.move();
         
-    }
+    } // end method customizeGameUpdate
 
 
     @Override
-    public void customizeMousePress(int i, int i1) {}
+    public void customizeMousePress(int i, int i1) {
+    
+    } // end method customizeMousePress
 
 
     @Override
-    protected void preGameLoop() {}
+    protected void preGameLoop() {
+        
+    } // end method preGameLoop
 
 
     @Override
-    protected void insideGameLoop() {}
+    protected void insideGameLoop() {
+    
+    } // end method insideGameLoop
 
 
     @Override
-    protected void postGameLoop() {}
+    protected void postGameLoop() {
+    
+    } // end method postGameLoop
+
 }

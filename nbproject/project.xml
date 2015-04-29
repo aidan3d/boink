@@ -16,11 +16,14 @@
         </libraries>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>backbuffer</word>
+            <word>ball's</word>
             <word>Bink</word>
             <word>Boink</word>
+            <word>bounciness</word>
             <word>circle's</word>
             <word>Hegarty</word>
             <word>kg</word>
+            <word>Newtons</word>
         </spellchecker-wordlist>
     </configuration>
 </project>
