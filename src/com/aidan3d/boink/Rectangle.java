@@ -16,6 +16,7 @@ package com.aidan3d.boink;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import math.geom2d.Vector2D;
 
 
@@ -33,11 +34,14 @@ public class Rectangle {
     protected Vector2D origin;        // the center of the rectangle (i.e. our placement point in the game window)
     protected Vector2D majorAxis;     // joins the origin to the right-hand vertical side of the rectangle
     protected Vector2D minorAxis;     // joins the origin to the top or "north" horizontal rail of the rectangle
-    protected Vector2D topLeft;
-    protected Vector2D topRight;
-    protected Vector2D bottomRight;
-    protected Vector2D bottomLeft;
+
+    protected Vector2D topLeft;       // the uppermost left-hand vertex
+    protected Vector2D topRight;      // the uppermost right-hand vertex
+    protected Vector2D bottomRight;   // the lowermost left-hand vertext
+    protected Vector2D bottomLeft;    // the lowermost right-hand vertext
     
+    ArrayList<Vector2D> vertices;
+
     // </editor-fold>
    
     // <editor-fold defaultstate="collapsed" desc="Constructors">
@@ -53,6 +57,8 @@ public class Rectangle {
         topRight = new Vector2D(0.0F, 0.0F);
         bottomRight = new Vector2D(0.0F, 0.0F);
         bottomLeft = new Vector2D(0.0F, 0.0F);
+        
+        vertices = new ArrayList<>();
 
     } // end no-argument constructor
     
@@ -73,15 +79,83 @@ public class Rectangle {
         bottomRight = new Vector2D(0.0F, 0.0F);
         bottomLeft = new Vector2D(0.0F, 0.0F);
         
+        vertices = new ArrayList<>();
+        
         // stack 'em. Lets build the four peripheral points.
         build();
-
+        
+        loadVertexList();
+        
     } // end three-argument constructor
 
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Operations">
+    //<editor-fold defaultstate="collapsed" desc="Accessors">
+
+    /**
+     * This method retrieves the 2d Euclidian vector
+     * referred to by the instance variable "topLeft."
+     * @return the rectangle's left-hand uppermost vertex
+     */
+    public Vector2D getTopLeft() {
+
+        return topLeft;
+
+    } // end method getTopLeft
+
+
+    /**
+     * This method retrieves the 2d Euclidian vector
+     * referred to by the instance variable "topRight."
+     * @return  the rectangle's right-hand uppermost
+     * vertex
+     */
+    public Vector2D getTopRight() {
+
+        return topRight;
+
+    } // end method getTopRight
+
+
+    /**
+     * This method retrieves the 2d Euclidian vector
+     * referred to by the instance variable "bottomRight."
+     * @return  the rectangle's right-hand lowermost
+     * vertex
+     */
+    public Vector2D getBottomRight() {
+
+        return bottomRight;
+
+    } // end method getBottomRight
+
+
+    /**
+     * This method retrieves the 2d Euclidian vector
+     * referred to by the instance variable "bottomLeft."
+     * @return the rectangles left-hand lowermost
+     * vertex
+     */
+    public Vector2D getBottomLeft() {
+
+        return bottomLeft;
+
+    } // end method getBottomLeft
+
+
+    /**
+     * This method retrieves the set of 2d Euclidian
+     * vectors (i.e. <i>vertices</i>) defining this rectangle.
+     * @return a list containing the rectangle's vertices
+     */
+    public ArrayList<Vector2D> getVertexList() {
+        return vertices;
+    }
     
+    //</editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Operations">
+
     /**
      * Build out the rectangle's four perimeter points using:
      * <p>
@@ -102,7 +176,7 @@ public class Rectangle {
 
         // origin - (a + b) = upper left-hand point: A
         topLeft = origin.minus(majorAxis.plus(minorAxis));
-
+        
         // origin + (a - b) = upper right-hand point: B
         topRight = origin.plus(majorAxis.minus(minorAxis));
 
@@ -111,7 +185,7 @@ public class Rectangle {
 
         // origin - (a - b) = lower left-hand point: D
         bottomLeft = origin.minus(majorAxis.minus(minorAxis));
-
+        
     } // end method build
     
     
@@ -160,7 +234,7 @@ public class Rectangle {
 
         // draw AB
         sheet.drawLine((int)topLeft.x(), (int)topLeft.y(), (int)topRight.x(), (int)topRight.y());
-
+        
         // draw BC
         sheet.drawLine((int)(topRight.x()), (int)(topRight.y()), (int)(bottomRight.x()), (int)(bottomRight.y()));
 
@@ -171,6 +245,20 @@ public class Rectangle {
         sheet.drawLine((int)(bottomLeft.x()), (int)(bottomLeft.y()), (int)(topLeft.x()), (int)(topLeft.y()));
 
     } // end method draw
+
+
+    /**
+     * Populate the list of vertices. This will be useful for
+     * calling objects to detect collisions.
+     */
+    protected void loadVertexList() {
+
+        vertices.add(topLeft);
+        vertices.add(topRight);
+        vertices.add(bottomRight);
+        vertices.add(bottomLeft);
+
+    } // end mthod loadVertexList
 
     // </editor-fold>
 

@@ -67,6 +67,52 @@ public class Circle {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Operations">
+    
+    /**
+     * This method handles a series of connected questions
+     * relating to time:
+     * <p>
+     * &nbsp &nbsp &nbsp a) Is this circle going to hit the received Rectangle<br>
+     * &nbsp &nbsp &nbsp &nbsp &nbsp object (or, looking at things in a "Newtonian" way:<br>
+     * &nbsp &nbsp &nbsp &nbsp &nbsp is any part of the Rectangle object going to enter<br>
+     * &nbsp &nbsp &nbsp &nbsp &nbsp this circle's airspace).
+     * <p>
+     * &nbsp &nbsp &nbsp b) how long is the wall's journey towards us;
+     * <p>
+     * &nbsp &nbsp &nbsp c) at what proportion of that journey-time are we<br>
+     * &nbsp &nbsp &nbsp &nbsp &nbsp located temporally (valid range:  0 - 1 inclusive)?
+     * <p>
+     * We'll do this by expanding the Rectangle object by the radius of<br>
+     * the circle, and seeing if our circle's center is being held for<br>
+     * ransom by the infringing Rectangle object.
+     * @param rect a Rectangle object holding its centroid and vertices
+     * @return truth if any of the vertices are inside this circle
+     */
+    public boolean circleRectangleCollision(Rectangle rect) {
+
+        boolean status = false;  // a signal flag, raised if any of the rectangle's vertices are
+                                 // in this circle's "airpsace"
+        
+        //****************************************************
+        // 1. Let's see if any of the "incoming"             *
+        //    rectangle's vertices are inside                *
+        //    this circle's "airsplace."                     *
+        //****************************************************
+        
+        for(Vector2D vertex : rect.getVertexList()) {
+            
+            if (pointCircleCollision(vertex)) {
+                
+                status = true;
+            
+            } // end if
+            
+        } // end for
+        
+        return status;
+    
+    } // end method i
+
 
     /**
      * Draw the Circle. Will be overridden by the
@@ -76,7 +122,7 @@ public class Circle {
      * the calling object.
      */
     public void draw(Graphics sheet) {
-    }
+    } // end method draw
 
 
     /**
@@ -84,7 +130,35 @@ public class Circle {
      * the subclass.
      */
     public void move() {
-    }
+    } // end method move
+
+
+    /**
+     * This method is a "radar detector," lighting up if
+     * the vertex received in the parameter is inside this
+     * circle
+     * @param vertex a 2d Euclidian vector referring to the
+     * incurring node
+     * @return true if the incurring vertex is "inside" this circle
+     */
+    public boolean pointCircleCollision(Vector2D vertex) {
+        
+        boolean status = false;  // a signal flag, raised if we have a "hit."
+
+        // create a vector connecting the impinging vertex to this circle's center
+        Vector2D displacement = vertex.minus(center);
+        
+        // check the length of the rope from-the-vertex-to-this-circle's-center
+        if (displacement.norm() < radius) {
+            
+            // the tethered point IS in our "airspace"
+            status = true;
+
+        } // end if
+                
+        return status;
+        
+    } // end method pointCircleCollision
 
     // </editor-fold>
 
