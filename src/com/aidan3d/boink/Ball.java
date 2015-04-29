@@ -24,10 +24,16 @@ import math.geom2d.Vector2D;
  */
 public class Ball extends Circle {
 
+    // <editor-fold defaultstate="collapsed" desc="Fields">
+
     protected Vector2D gravity;             // a force operating on the ball
     protected Color fillColor;              // the balls's "fill" color
 
+    // </editor-fold>
 
+
+    // <editor-fold defaultstate="collapsed" desc="Constructors">
+     
     /**
      * The no-argument (default) constructor.
      */
@@ -57,14 +63,19 @@ public class Ball extends Circle {
         fillColor = ink;
     }
 
+    // </editor-fold>
 
-        /**
-         * 
-         * @return a Vector2D object holding the ball's
-         * resultant acceleration, based on Newtonian forces
-         * in the system.
-         */
-        private Vector2D calcAcceleration() {
+
+    // <editor-fold defaultstate="collapsed" desc="Operations">
+
+    /**
+     * 
+     * @return a Vector2D object holding the ball's
+     * resultant acceleration, based on Newtonian forces
+     * in the system.
+     */
+    private Vector2D calcAcceleration() {
+
         // a variable to hold the computed acceleration
         Vector2D acceleration = new Vector2D(0.0F, 0.0F);
 
@@ -102,5 +113,7 @@ public class Ball extends Circle {
         center = (center.plus(velocity)).plus(calcAcceleration());
 
     } // end method move
+    
+    // </editor-fold>
 
-}
+} // end class Ball

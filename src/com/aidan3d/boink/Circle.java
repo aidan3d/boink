@@ -26,12 +26,18 @@ import math.geom2d.Vector2D;
  * 
  */
 public class Circle {
+
+    // <editor-fold defaultstate="collapsed" desc="Fields">
+
     protected Vector2D center;      // the circle's center (also, its displacement)
     protected double radius;        // the circles radius
     protected double mass;          // the circle's mass is needed for kinetic energy-based calculations
     protected Vector2D velocity;    // the circle's speed and heading
-
     
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Constructors">
+
     /**
      * The no-argument constructor.
      */
@@ -58,6 +64,9 @@ public class Circle {
         mass = m;
     }
 
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Operations">
 
     /**
      * Draw the Circle. Will be overridden by the
@@ -76,5 +85,7 @@ public class Circle {
      */
     public void move() {
     }
+
+    // </editor-fold>
 
 } // end class Circle

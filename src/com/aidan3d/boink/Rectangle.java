@@ -26,19 +26,22 @@ import math.geom2d.Vector2D;
  * receiving it's construction parameters from the
  * calling object.
  */
-public class Rectangle
-{
-    // Fields
-    Vector2D origin;        // the center of the rectangle (i.e. our placement point in the game window)
-    Vector2D majorAxis;     // joins the origin to the right-hand vertical side of the rectangle
-    Vector2D minorAxis;     // joins the origin to the top or "north" horizontal rail of the rectangle
-    Vector2D topLeft;
-    Vector2D topRight;
-    Vector2D bottomRight;
-    Vector2D bottomLeft;
+public class Rectangle {
+
+    // <editor-fold defaultstate="collapsed" desc="Fields">
+
+    protected Vector2D origin;        // the center of the rectangle (i.e. our placement point in the game window)
+    protected Vector2D majorAxis;     // joins the origin to the right-hand vertical side of the rectangle
+    protected Vector2D minorAxis;     // joins the origin to the top or "north" horizontal rail of the rectangle
+    protected Vector2D topLeft;
+    protected Vector2D topRight;
+    protected Vector2D bottomRight;
+    protected Vector2D bottomLeft;
     
-    
-    // Constructors
+    // </editor-fold>
+   
+    // <editor-fold defaultstate="collapsed" desc="Constructors">
+
     /**
      * The no-argument (default) constructor.
      */
@@ -69,10 +72,16 @@ public class Rectangle
         topRight = new Vector2D(0.0F, 0.0F);
         bottomRight = new Vector2D(0.0F, 0.0F);
         bottomLeft = new Vector2D(0.0F, 0.0F);
+        
+        // stack 'em. Lets build the four peripheral points.
+        build();
 
     } // end three-argument constructor
 
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Operations">
+    
     /**
      * Build out the rectangle's four perimeter points using:
      * <p>
@@ -91,17 +100,17 @@ public class Rectangle
         // let major axis = a,
         //     minor axis = b.
 
-        // origin - (a - b) = upper left-hand point: A
-        topLeft = origin.minus(majorAxis.minus(minorAxis));
+        // origin - (a + b) = upper left-hand point: A
+        topLeft = origin.minus(majorAxis.plus(minorAxis));
 
-        // origin + (a + b) = upper right-hand point: B
-        topRight = origin.plus(majorAxis.plus(minorAxis));
+        // origin + (a - b) = upper right-hand point: B
+        topRight = origin.plus(majorAxis.minus(minorAxis));
 
-        // origin + (a - b) = lower right-hand point: C
-        bottomRight = origin.plus(majorAxis.minus(minorAxis));
+        // origin + (a + b) = lower right-hand point: C
+        bottomRight = origin.plus(majorAxis.plus(minorAxis));
 
-        // origin - (a + b) = lower left-hand point: D
-        bottomLeft = origin.minus(majorAxis.plus(minorAxis));
+        // origin - (a - b) = lower left-hand point: D
+        bottomLeft = origin.minus(majorAxis.minus(minorAxis));
 
     } // end method build
     
@@ -110,20 +119,59 @@ public class Rectangle
      * Intended to be overridden by the subclass.
      */
     public void draw(Graphics sheet) {
-        
-        // use a yellow crayon
-        sheet.setColor(Color.yellow);
-        
-        // draw the rectangle's origin
-        sheet.drawOval((int)(origin.x()-3), (int)(origin.y()-3), 6, 6);
-        
-        
-        // draw the major axis.
-        sheet.drawOval((int)(origin.plus(majorAxis).x()-3), (int)(origin.plus(majorAxis).y()-3), 6, 6);
-        
-        // draw the minor axis.
-        sheet.drawOval((int)(origin.plus(minorAxis).x()-3), (int)(origin.plus(minorAxis).y()-3), 6, 6);
-        //sheet.drawOval((int)(topLeft.x()-3), (int)(topLeft.y()-3), 6, 6);
-    }
 
-}
+        //****************************************************
+        // 1. Draw the rectangle's vertices.                 *
+        //                                                   *
+        //****************************************************
+
+        // 1.1 use a yellow crayon
+        sheet.setColor(Color.yellow);
+
+        // 1.2 draw the rectangle's origin
+        sheet.drawOval((int)(origin.x()-3), (int)(origin.y()-3), 6, 6);
+
+        // draw the major axis
+        sheet.drawOval((int)(origin.plus(majorAxis).x()-3), (int)(origin.plus(majorAxis).y()-3), 6, 6);
+
+        // draw the minor axis
+        sheet.drawOval((int)(origin.plus(minorAxis).x()-3), (int)(origin.plus(minorAxis).y()-3), 6, 6);
+
+        // try some red ink!
+        sheet.setColor(Color.red);
+
+        // draw A
+        sheet.drawOval((int)(topLeft.x()-6), (int)(topLeft.y()-6), 12, 12);
+
+        // draw B
+        sheet.drawOval((int)(topRight.x()-6), (int)(topRight.y()-6), 12, 12);
+
+        // draw C
+        sheet.drawOval((int)(bottomRight.x()-6), (int)(bottomRight.y()-6), 12, 12);
+
+        // draw D
+        sheet.drawOval((int)(bottomLeft.x()-6), (int)(bottomRight.y()-6), 12, 12);
+
+
+        //****************************************************
+        // 2. Draw the rectangle's edges.                    *
+        //                                                   *
+        //****************************************************
+
+        // draw AB
+        sheet.drawLine((int)topLeft.x(), (int)topLeft.y(), (int)topRight.x(), (int)topRight.y());
+
+        // draw BC
+        sheet.drawLine((int)(topRight.x()), (int)(topRight.y()), (int)(bottomRight.x()), (int)(bottomRight.y()));
+
+        // draw CD
+        sheet.drawLine((int)(bottomRight.x()), (int)(bottomRight.y()), (int)(bottomLeft.x()), (int)(bottomLeft.y()));
+
+        // draw DA
+        sheet.drawLine((int)(bottomLeft.x()), (int)(bottomLeft.y()), (int)(topLeft.x()), (int)(topLeft.y()));
+
+    } // end method draw
+
+    // </editor-fold>
+
+} // end class Rectangle
