@@ -1,17 +1,16 @@
 /**************************************************************
- * CIST 2744 Advanced Game Physics, Section 41259             *
+ *                B O I N K !                                 *
  *                                                            *
- * Assignment:  Final Project: Boink                          *
+ * Author:        Aidan Hegarty                               *
  *                                                            *
- * Name:        Aidan Hegarty, SID 3036 (last four)           *
+ * Last modified: May 6, 2015                                 *
  *                                                            *
- * Description: A platform game with an appetite for          *
- *              destruction! Help the green Boink-ball        *
- *              catch the blue Bink-ball by clicking          *
- *              wooden platform planks.                       *
+ * Description:   A platform game with an appetite for        *
+ *                destruction! Help the green Boink-ball      *
+ *                catch the blue Bink-ball by removing        *
+ *                wooden platform planks.                     *
  *                                                            *
  **************************************************************/
-
 package com.aidan3d.boink;
 
 import java.awt.Color;
@@ -36,10 +35,10 @@ public class Rectangle {
     protected Vector2D minorAxis;     // joins the origin to the top or "north" horizontal rail of the rectangle
 
     protected Vector2D topLeft;       // the uppermost left-hand vertex
+    protected Vector2D bottomLeft;    // the lowermost left-hand vertext
+    protected Vector2D bottomRight;   // the lowermost right-hand vertext
     protected Vector2D topRight;      // the uppermost right-hand vertex
-    protected Vector2D bottomRight;   // the lowermost left-hand vertext
-    protected Vector2D bottomLeft;    // the lowermost right-hand vertext
-    
+
     ArrayList<Vector2D> vertices;
 
     // </editor-fold>
@@ -157,7 +156,9 @@ public class Rectangle {
     // <editor-fold defaultstate="collapsed" desc="Operations">
 
     /**
-     * Build out the rectangle's four perimeter points using:
+     * Build out the rectangle's four perimeter points, starting at its top-left<br>
+     * origin and working counter-clockwise (so that we get outward-facing<br>
+     * normals) using:
      * <p>
      *     &nbsp &nbsp a) The <i>"center"</i>;
      *     <p>
@@ -176,16 +177,17 @@ public class Rectangle {
 
         // origin - (a + b) = upper left-hand point: A
         topLeft = origin.minus(majorAxis.plus(minorAxis));
-        
-        // origin + (a - b) = upper right-hand point: B
-        topRight = origin.plus(majorAxis.minus(minorAxis));
+
+        // origin - (a - b) = lower left-hand point: B
+        bottomLeft = origin.minus(majorAxis.minus(minorAxis));
 
         // origin + (a + b) = lower right-hand point: C
         bottomRight = origin.plus(majorAxis.plus(minorAxis));
 
-        // origin - (a - b) = lower left-hand point: D
-        bottomLeft = origin.minus(majorAxis.minus(minorAxis));
-        
+        // origin + (a - b) = upper right-hand point: D
+        topRight = origin.plus(majorAxis.minus(minorAxis));
+
+
     } // end method build
     
     
@@ -199,32 +201,33 @@ public class Rectangle {
         //                                                   *
         //****************************************************
 
-        // 1.1 use a yellow crayon
+        // 1.1 use a yellow crayon for origins and terminals
         sheet.setColor(Color.yellow);
 
-        // 1.2 draw the rectangle's origin
+        // 1.2 draw the rectangle's origin as a yellow circle
         sheet.drawOval((int)(origin.x()-3), (int)(origin.y()-3), 6, 6);
 
-        // draw the major axis
+        // draw the major axis terminal in yellow
         sheet.drawOval((int)(origin.plus(majorAxis).x()-3), (int)(origin.plus(majorAxis).y()-3), 6, 6);
 
-        // draw the minor axis
+        // draw the minor axis terminal in yellow, twoo
         sheet.drawOval((int)(origin.plus(minorAxis).x()-3), (int)(origin.plus(minorAxis).y()-3), 6, 6);
 
-        // try some red ink!
+        // try some red ink! we like red vertex markers to contrast with the yellow origins
+        // and terminals
         sheet.setColor(Color.red);
 
         // draw A
         sheet.drawOval((int)(topLeft.x()-6), (int)(topLeft.y()-6), 12, 12);
 
         // draw B
-        sheet.drawOval((int)(topRight.x()-6), (int)(topRight.y()-6), 12, 12);
+        sheet.drawOval((int)(bottomLeft.x()-6), (int)(bottomRight.y()-6), 12, 12);
 
         // draw C
         sheet.drawOval((int)(bottomRight.x()-6), (int)(bottomRight.y()-6), 12, 12);
 
         // draw D
-        sheet.drawOval((int)(bottomLeft.x()-6), (int)(bottomRight.y()-6), 12, 12);
+        sheet.drawOval((int)(topRight.x()-6), (int)(topRight.y()-6), 12, 12);
 
 
         //****************************************************
@@ -233,32 +236,34 @@ public class Rectangle {
         //****************************************************
 
         // draw AB
-        sheet.drawLine((int)topLeft.x(), (int)topLeft.y(), (int)topRight.x(), (int)topRight.y());
+        sheet.drawLine((int)topLeft.x(), (int)topLeft.y(), (int)bottomLeft.x(), (int)bottomLeft.y());
         
         // draw BC
-        sheet.drawLine((int)(topRight.x()), (int)(topRight.y()), (int)(bottomRight.x()), (int)(bottomRight.y()));
+        sheet.drawLine((int)(bottomLeft.x()), (int)(bottomLeft.y()), (int)(bottomRight.x()), (int)(bottomRight.y()));
 
         // draw CD
-        sheet.drawLine((int)(bottomRight.x()), (int)(bottomRight.y()), (int)(bottomLeft.x()), (int)(bottomLeft.y()));
+        sheet.drawLine((int)(bottomRight.x()), (int)(bottomRight.y()), (int)(topRight.x()), (int)(topRight.y()));
 
         // draw DA
-        sheet.drawLine((int)(bottomLeft.x()), (int)(bottomLeft.y()), (int)(topLeft.x()), (int)(topLeft.y()));
+        sheet.drawLine((int)(topRight.x()), (int)(topRight.y()), (int)(topLeft.x()), (int)(topLeft.y()));
 
     } // end method draw
 
 
     /**
-     * Populate the list of vertices. This will be useful for
-     * calling objects to detect collisions.
+     * Populate the list of vertices. Start at
+     * the top-left vertex "A" and work counter-
+     * clockwise. This will be useful for calling
+     * objects to detect collisions.
      */
     protected void loadVertexList() {
 
         vertices.add(topLeft);
-        vertices.add(topRight);
-        vertices.add(bottomRight);
         vertices.add(bottomLeft);
+        vertices.add(bottomRight);
+        vertices.add(topRight);
 
-    } // end mthod loadVertexList
+    } // end method loadVertexList
 
     // </editor-fold>
 

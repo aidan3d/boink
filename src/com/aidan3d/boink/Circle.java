@@ -1,14 +1,14 @@
 /**************************************************************
- * CIST 2744 Advanced Game Physics, Section 41259             *
+ *                B O I N K !                                 *
  *                                                            *
- * Assignment:  Final Project: Boink                          *
+ * Author:        Aidan Hegarty                               *
  *                                                            *
- * Name:        Aidan Hegarty, SID 3036 (last four)           *
+ * Last modified: May 6, 2015                                 *
  *                                                            *
- * Description: A platform game with an appetite for          *
- *              destruction! Help the green Boink-ball        *
- *              catch the blue Bink-ball by clicking          *
- *              wooden platform planks.                       *
+ * Description:   A platform game with an appetite for        *
+ *                destruction! Help the green Boink-ball      *
+ *                catch the blue Bink-ball by removing        *
+ *                wooden platform planks.                     *
  *                                                            *
  **************************************************************/
 package com.aidan3d.boink;

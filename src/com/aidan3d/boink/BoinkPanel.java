@@ -1,14 +1,14 @@
 /**************************************************************
- * CIST 2744 Advanced Game Physics, Section 41259             *
+ *                B O I N K !                                 *
  *                                                            *
- * Assignment:  Final Project: Boink                          *
+ * Author:        Aidan Hegarty                               *
  *                                                            *
- * Name:        Aidan Hegarty, SID 3036 (last four)           *
+ * Last modified: May 6, 2015                                 *
  *                                                            *
- * Description: A platform game with an appetite for          *
- *              destruction! Help the green Boink-ball        *
- *              catch the blue Bink-ball by removing          *
- *              wooden platform planks.                       *
+ * Description:   A platform game with an appetite for        *
+ *                destruction! Help the green Boink-ball      *
+ *                catch the blue Bink-ball by removing        *
+ *                wooden platform planks.                     *
  *                                                            *
  **************************************************************/
 package com.aidan3d.boink;
@@ -85,7 +85,11 @@ public class BoinkPanel extends EurekaPanel {
         // superclass's variables and methods in
         // the parental inheritance list (Grandad
         // is a JPanel, Great Grandad is an awt
-        // component, etc).
+        // component, etc). The EurekaPanel immediate-
+        // parent needs only a time period holding
+        // variable. The EurekaPanel-dervied BoinkPanel
+        // object will be instantiated by a EurekaWindow-
+        // derived container
         super(p);
 
         // In case we need to refer to the parent
@@ -112,13 +116,11 @@ public class BoinkPanel extends EurekaPanel {
         boinkFont = new Font("SansSerif", Font.BOLD, 24);
         metrics = this.getFontMetrics(boinkFont);
 
-        // build the upper bunk (i.e. platform)
-        buildUpperBunk();
     }
     // </editor-fold>
 
 
-    // <editor-fold defaultstate="collapsed" desc="BoinkPanel Render/Update Loop Operations">
+    // <editor-fold defaultstate="collapsed" desc="Render/Update Loop Operations">
     
       /**
      * This is the initialization method that should be overridden 
@@ -172,61 +174,36 @@ public class BoinkPanel extends EurekaPanel {
 
         // Move bill-the-BoinkPanel first.
         bill.move();
-        
+
     } // end method customizeGameUpdate
 
 
     @Override
     public void customizeMousePress(int i, int i1) {
-    
+
+        // display the coordinates of the mouse click
+        System.out.printf("Mouse clicked (%d, %d)%n", i, i1);
+
     } // end method customizeMousePress
 
 
     @Override
     protected void preGameLoop() {
-        
+
     } // end method preGameLoop
 
 
     @Override
     protected void insideGameLoop() {
-    
+
     } // end method insideGameLoop
 
 
     @Override
     protected void postGameLoop() {
-    
+
     } // end method postGameLoop
-    
+
     // </editor-fold>
-
-
-    // <editor-fold defaultstate="collapsed" desc="Logical Game Operations">
-    
-    /**
-     * Let's load the upperBunk list with
-     * appropriate rectangles.
-     */
-    public void buildUpperBunk() {
-        
-        // add segement 1 of 4
-        topBunkList.add(new Rectangle(new Vector2D(PWIDTH/2-TANK_WIDTH/2+BOINK_RADIUS*6, PHEIGHT/2+BOINK_RADIUS),
-            new Vector2D(BOINK_RADIUS*2, 0.0), new Vector2D(0.0, BOINK_RADIUS)));
-        
-        // add segment 2 of 4
-        topBunkList.add(new Rectangle(new Vector2D(PWIDTH/2-TANK_WIDTH/2+BOINK_RADIUS*10, PHEIGHT/2+BOINK_RADIUS),
-            new Vector2D(BOINK_RADIUS*2, 0.0), new Vector2D(0.0, BOINK_RADIUS)));
-        
-        // add segment 3 of 4
-        topBunkList.add(new Rectangle(new Vector2D(PWIDTH/2-TANK_WIDTH/2+BOINK_RADIUS*14, PHEIGHT/2+BOINK_RADIUS),
-            new Vector2D(BOINK_RADIUS*2, 0.0), new Vector2D(0.0, BOINK_RADIUS)));
-        
-        // add segment 4 of 4
-        topBunkList.add(new Rectangle(new Vector2D(PWIDTH/2-TANK_WIDTH/2+BOINK_RADIUS*18, PHEIGHT/2+BOINK_RADIUS),
-            new Vector2D(BOINK_RADIUS*2, 0.0), new Vector2D(0.0, BOINK_RADIUS)));
-    }
-    // </editor-fold>
-
 
 } // end class BoinkPanel
