@@ -23,23 +23,19 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <Component id="leftTextBox" pref="388" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="rightTextBox" min="-2" pref="414" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="bunk" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="panel" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="bunk" max="32767" attributes="0"/>
+              <Component id="panel" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="leftTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -54,7 +50,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="leftTextBox">
     </Component>
-    <Container class="javax.swing.JPanel" name="bunk">
+    <Container class="javax.swing.JPanel" name="panel">
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.aidan3d.boink.BoinkPanel(this, period*1000000L)"/>
       </AuxValues>

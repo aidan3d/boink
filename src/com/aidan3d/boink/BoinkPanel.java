@@ -141,6 +141,13 @@ public class BoinkPanel extends EurekaPanel {
     public void customizeGameRender() {
         
         if (!super.gameOver) {
+            // display the maximum time allowed for a render-update-sleep EurekaWindow loop
+            // period = (1 / (frame rate)) * 10E9 to yield ns instead of seconds, i.e.
+            // 1/32 = 0.03125 and 0.03125 * 10E9 = approx. 31,000,000 nano seconds
+            // we're trying to get the render-update-sleep cycle done in that many nano
+            // seconds
+            System.out.printf("%ds, Period: %d%n", super.getTimeSpentInGame(), period);
+            
             theCanvas.setColor(Color.black); // splash on a "cloudless sky" color
             theCanvas.fillRect(0, 0, PWIDTH, PHEIGHT);
 

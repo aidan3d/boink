@@ -17,18 +17,18 @@ import Eureka.EurekaWindow;
 
 /**
  * The BoinkWindow class is derived from a <b>EurekaWindow</b>
- * object, which is currently derived from a <b>JFrame</b>
- * object. The BoinkWindow object will hold a <b>BoinkPanel</b> object
+ * class, which is currently derived from the <b>JFrame</b>
+ * class. The BoinkWindow object will hold a <b>BoinkPanel</b> object
  * (effectively a JPanel-derived object).
  * @author hardnett
  */
 public class BoinkWindow extends EurekaWindow {
-    private static final int DEFAULT_FPS = 32;  // the number of frames per second
+    private static final int DEFAULT_FPS = 1;  // the number of frames per second
     private static long period;                 // the time we want to "fill out" before updating
     
 
     /**
-     * Creates new form WormChase
+     * Creates new form BoinkWindow
      */
     public BoinkWindow() {
         initComponents();
@@ -37,23 +37,23 @@ public class BoinkWindow extends EurekaWindow {
     }
 
     public void windowActivated(java.awt.event.WindowEvent e) {
-        ((BoinkPanel)bunk).resumeGame();
+        ((BoinkPanel)panel).resumeGame();
     }
     
     public void windowDeactivated(java.awt.event.WindowEvent e) {
-        ((BoinkPanel)bunk).pauseGame();
+        ((BoinkPanel)panel).pauseGame();
     }
     
     public void windowDeiconified(java.awt.event.WindowEvent e) {
-        ((BoinkPanel)bunk).resumeGame();
+        ((BoinkPanel)panel).resumeGame();
     }
     
     public void windowIconified(java.awt.event.WindowEvent e) {
-        ((BoinkPanel)bunk).pauseGame();
+        ((BoinkPanel)panel).pauseGame();
     }
     
     public void windowClosing(java.awt.event.WindowEvent e) {
-        ((BoinkPanel)bunk).stopGame();
+        ((BoinkPanel)panel).stopGame();
     }
     
     
@@ -82,18 +82,18 @@ public class BoinkWindow extends EurekaWindow {
 
         rightTextBox = new javax.swing.JTextField();
         leftTextBox = new javax.swing.JTextField();
-        bunk = new com.aidan3d.boink.BoinkPanel(this, period*1000000L);
+        panel = new com.aidan3d.boink.BoinkPanel(this, period*1000000L);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        org.jdesktop.layout.GroupLayout bunkLayout = new org.jdesktop.layout.GroupLayout(bunk);
-        bunk.setLayout(bunkLayout);
-        bunkLayout.setHorizontalGroup(
-            bunkLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+        org.jdesktop.layout.GroupLayout panelLayout = new org.jdesktop.layout.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 0, Short.MAX_VALUE)
         );
-        bunkLayout.setVerticalGroup(
-            bunkLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 560, Short.MAX_VALUE)
         );
 
@@ -105,16 +105,13 @@ public class BoinkWindow extends EurekaWindow {
                 .add(leftTextBox, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(rightTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 414, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(bunk, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .add(panel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(bunk, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(panel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(leftTextBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -188,8 +185,8 @@ public class BoinkWindow extends EurekaWindow {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel bunk;
     private javax.swing.JTextField leftTextBox;
+    private javax.swing.JPanel panel;
     private javax.swing.JTextField rightTextBox;
     // End of variables declaration//GEN-END:variables
 }
